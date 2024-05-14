@@ -1,0 +1,5 @@
+version: 2
+tunnels:
+  example:
+    proto: tcp
+    addr: 25565
