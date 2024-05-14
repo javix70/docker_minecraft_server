@@ -1,4 +1,4 @@
-version: '3.0'
+version: '3.8'
 
 services:
   mc:
@@ -8,15 +8,14 @@ services:
     environment:
       EULA: 'true'
       MOD_PLATFORM: MODRINTH
-#      MODRINTH_MODPACK: https://modrinth.com/modpack/create-extra/version/z2oEWZQ5
-      MODRINTH_MODPACK: /create_sin_fancy_1.0.0.mrpack
-#      MODRINTH_EXCLUDE_FILES: fancymenu,beansBackpack,backpack
+      MODRINTH_MODPACK: https://modrinth.com/modpack/create-extra/version/z2oEWZQ5
+      MODRINTH_EXCLUDE_FILES: fancymenu,beansBackpack,backpack
       MEMORY: 2G
     tty: true
     stdin_open: true
     restart: unless-stopped
     volumes:
-      - mc-data:/data
+      - minecraft_data:/data
   init-filebrowser:
     image: filebrowser/filebrowser
     entrypoint: sh -c
@@ -34,7 +33,7 @@ services:
     environment:
       FB_DATABASE: /database/filebrowser.db
     volumes:
-      - mc-data:/srv
+      - minecraft_data:/srv
       - filebrowser-db:/database
     ports:
       - "25580:80"
@@ -52,7 +51,12 @@ services:
       - ./.ngrok.yml:/etc/ngrok.yml
     ports:
       - 4040:4040
+  backup:
+    build: ./backup
+    volumes:
+      - minecraft_data:/data
+      - ./backup:/backup
 
 volumes:
-  mc-data: {}
+  minecraft_data: {}
   filebrowser-db: {}
