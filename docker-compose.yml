@@ -8,8 +8,7 @@ services:
     environment:
       EULA: 'true'
       MOD_PLATFORM: MODRINTH
-      MODRINTH_MODPACK: /mrpack/server_1.0.0.mrpack
-#      MODRINTH_EXCLUDE_FILES: fancymenu,beansBackpack,backpack
+      MODRINTH_MODPACK: /mrpack/server.mrpack
       MEMORY: 2G
     tty: true
     stdin_open: true
