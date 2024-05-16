@@ -8,14 +8,15 @@ services:
     environment:
       EULA: 'true'
       MOD_PLATFORM: MODRINTH
-      MODRINTH_MODPACK: https://modrinth.com/modpack/create-extra/version/z2oEWZQ5
-      MODRINTH_EXCLUDE_FILES: fancymenu,beansBackpack,backpack
+      MODRINTH_MODPACK: /mrpack/server_1.0.0.mrpack
+#      MODRINTH_EXCLUDE_FILES: fancymenu,beansBackpack,backpack
       MEMORY: 2G
     tty: true
     stdin_open: true
     restart: unless-stopped
     volumes:
       - minecraft_data:/data
+      - ./mrpack:/mrpack
   init-filebrowser:
     image: filebrowser/filebrowser
     entrypoint: sh -c
