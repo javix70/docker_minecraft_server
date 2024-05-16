@@ -51,11 +51,11 @@ services:
       - ./.ngrok.yml:/etc/ngrok.yml
     ports:
       - 4040:4040
-  backup:
-    build: ./backup
-    volumes:
-      - minecraft_data:/data
-      - ./backup:/backup
+#  backup:
+#    build: ./backup
+#    volumes:
+#      - minecraft_data:/data
+#      - ./backup:/backup
 
 volumes:
   minecraft_data: {}
