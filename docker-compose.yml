@@ -9,7 +9,7 @@ services:
       EULA: 'true'
       MOD_PLATFORM: MODRINTH
       MODRINTH_MODPACK: /mrpack/server.mrpack
-      MEMORY: 2G
+      MEMORY: 4G
     tty: true
     stdin_open: true
     restart: unless-stopped
@@ -37,20 +37,30 @@ services:
       - filebrowser-db:/database
     ports:
       - "25580:80"
-  ngrok:
-    image: ngrok/ngrok:alpine
-    restart: unless-stopped
-    environment:
-      NGROK_AUTHTOKEN: ${AUTH_TOKEN}
+  cloudflared:
+    image: cloudflare/cloudflared:latest
     command:
-      - "start"
-      - "--all"
-      - "--config"
-      - "/etc/ngrok.yml"
-    volumes:
-      - ./.ngrok.yml:/etc/ngrok.yml
-    ports:
-      - 4040:4040
+      - "tunnel"
+      - "--no-autoupdate"
+      - "run"
+      - "--token"
+      - ${CLOUDFLARE_AUTH_TOKEN}
+
+# Este te regala una DNS grats, pero es dinamico cada vez que se ejecuta
+#  ngrok:
+#    image: ngrok/ngrok:alpine
+#    restart: unless-stopped
+#    environment:
+#      NGROK_AUTHTOKEN: ${AUTH_TOKEN}
+#    command:
+#      - "start"
+#      - "--all"
+#      - "--config"
+#      - "/etc/ngrok.yml"
+#    volumes:
+#      - ./.ngrok.yml:/etc/ngrok.yml
+#    ports:
+#      - 4040:4040
 #  backup:
 #    build: ./backup
 #    volumes:
